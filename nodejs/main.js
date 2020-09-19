@@ -3,7 +3,7 @@ var fs = require('fs');     // 파일 읽는 시스템을 읽는 것들
 var url = require('url');   
 var qs = require('querystring');
 var template = require('./lib/template.js');   //반복적으로 쓰이는 것을 모듈화 함
-var path = require('path');         
+var path = require('path'); // 입력정보 세탁을 위해. 읽어 들어 오는 곳에 기입 fs.readifle delete 부분에         
 var sanitizeHtml = require('sanitize-html');  // html을 세탁해주는 것을 의미함
  
 var app = http.createServer(function(request,response){
@@ -25,8 +25,7 @@ var app = http.createServer(function(request,response){
         });   
       } else {                                              //(else)문
         fs.readdir('./data', function(error, filelist){     //해당 fs 모듈을 사용하며, 콜백함수를 가진다. 
-          var filteredId = path.parse(queryData.id).base;   //filtered ID를 변수를 가지며 (html을 세탁함)
-          var filteredId = path.parse(queryData.id).base;  //filtered ID를 변수로 가짐(html을 세탁함)
+          var filteredId = path.parse(queryData.id).base;   //filtered ID를 변수를 가지며 (html을 세탁함)         
           fs.readFile(`data/${filteredId}`, 'utf8', function(err, description){   // 파일을 읽으며, utf8로 읽음
             var title = queryData.id;                                             // body 본문 부분
             var sanitizedTitle = sanitizeHtml(title);                             // title을 html을 세탁함. 
